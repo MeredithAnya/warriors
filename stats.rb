@@ -32,11 +32,31 @@ green =  NBAPlayer.new("Draymond", "Green")
 ezeli =  NBAPlayer.new("Festus", "Ezeli")
 thompson = NBAPlayer.new("Klay", "Thompson")
 barnes = NBAPlayer.new("Harrison", "Barnes")
+bogut = NBAPlayer.new("Andrew", "Bogut")
+iguodala = NBAPlayer.new("Andre", "Iguodala")
+livingston = NBAPlayer.new("Shaun", "Livingston")
+clark = NBAPlayer.new("Ian", "Clark")
+mcadoo = NBAPlayer.new("James Michael McAdoo")
+rush = NBAPlayer.new("Brandon", "Rush")
+speights = NBAPlayer.new("Marreese", "Speights")
+barbosa = NBAPlayer.new("Leandro", "Barbosa")
+jthompson = NBAPlayer.new("Jason", "Thompson")
 
-PLAYERS = {"Curry" => curry,
-            "Green" => green,
-            "Ezeli" => ezeli,
-            "Thompson" => thompson}
+
+PLAYERS = {"Stephen Curry" => curry,
+            "Draymond Green" => green,
+            "Festus Ezeli" => ezeli,
+            "Klay Thompson" => thompson,
+            "Harrison Barnes" => barnes,
+            "Andrew Bogut" => bogut,
+            "Andre Iguodala" => iguodala,
+            "Shaun Livingston" => livingston,
+            "Ian Clark" => clark,
+            "James Michael McAdoo" => mcadoo,
+            "Brandon Rush" => rush,
+            "Marreese Speights" => speights
+            "Jason Thompson" => jthompson,
+            "Leandro Barbosa" => barbosa}
 
 STATS_HASH = {
   1 => "MINS",
@@ -60,10 +80,11 @@ STATS_HASH = {
   19 => "PTS"
 }
 
-def find_player(lastname)
+def find_player(firstname, lastname)
+  fullname = firstname + " " + lastname
   player = nil
   PLAYERS.each do |name, object|
-    player = object if name == lastname
+    player = object if name = fullname
   end
   player
 end
@@ -87,7 +108,7 @@ def handle_stats(stats)
     count = 4
   end
 
-  player = find_player(lastname)
+  player = find_player(firstname, lastname)
   stats_num = 1
 
   if player
