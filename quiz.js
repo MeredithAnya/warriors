@@ -1,6 +1,7 @@
 var Quiz = function(){
   this.questions = getQuestions();
   this.points = 0;
+  this.currentQ = 0;
 }
 
 PLAYERS = {
