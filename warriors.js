@@ -44,6 +44,3 @@ stats = {
   "Draymond Green": greenStats
 }
 module.exports.names = stats;
-// module.exports.bogutStats = bogutStats;
-// module.exports.barnesStats = barnesStats;
-// module.exports.greenStats = greenStats;
