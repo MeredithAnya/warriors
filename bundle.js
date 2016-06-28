@@ -48,10 +48,22 @@
 	var Quiz = __webpack_require__(2)
 	__webpack_require__(3)
 
+	if (Array.prototype.shuffle === undefined){
+	  Array.prototype.shuffle = function() {
+	    for (var i = 0; i < this.length; i++) {
+	      var randIdx = Math.floor(Math.random() * this.length - i) + i;
+	      var temp = this[i];
+	      this[i] = this[randIdx];
+	      this[randIdx] = temp;
+	    }
+
+	    return this;
+	  };
+	}
+
 	var getStats = function(quizGame){
 	  var players = quizGame.questions[quizGame.currentQ];
 	  var playerName = "";
-	  debugger;
 	  Object.keys(players).forEach(function(player){
 	    if (players[player]){
 	      playerName = player;
@@ -78,7 +90,7 @@
 	  displayStats(quizGame);
 	  var count = 0;
 	  el = document.getElementById('question');
-	  Object.keys(quizGame.questions[0]).forEach(function(name){
+	  Object.keys(quizGame.questions[0]).shuffle().forEach(function(name){
 	    el = document.getElementById('question');
 	    newEl = document.createElement("li");
 	    newEl.className += "player" + count;
@@ -99,13 +111,13 @@
 	      child[0].parentNode.removeChild(child[0]);
 	    }
 	  }
-	  
+
 	  var num = quizGame.currentQ;
 	  quizGame.currentQ = num + 1;
 	  var count = 0;
 	  displayStats(quizGame);
 
-	  Object.keys(quizGame.questions[quizGame.currentQ]).forEach(function(name){
+	  Object.keys(quizGame.questions[quizGame.currentQ]).shuffle().forEach(function(name){
 	    el = document.getElementById('question');
 	    newEl = document.createElement("li");
 	    newEl.className += "player" + count;
@@ -333,9 +345,22 @@
 	  13: "Anderson Varejao"
 	}
 
+	if (Array.prototype.shuffle === undefined){
+	  Array.prototype.shuffle = function() {
+	    for (var i = 0; i < this.length; i++) {
+	      var randIdx = Math.floor(Math.random() * this.length - i) + i;
+	      var temp = this[i];
+	      this[i] = this[randIdx];
+	      this[randIdx] = temp;
+	    }
+
+	    return this;
+	  };
+	}
+
 	function getQuestions(){
 	  var questions = [];
-	  Object.keys(PLAYERS).forEach(function(playerNum){
+	  Object.keys(PLAYERS).shuffle().forEach(function(playerNum){
 	    questions.push(makeQuestion(playerNum));
 	  });
 	  return questions;
@@ -362,6 +387,7 @@
 	  var question = this.questions[this.currentQ];
 	  if (question[guess] === true){
 	    this.points += 1;
+	    console.log("correct");
 	  }
 	  return this.points;
 	};

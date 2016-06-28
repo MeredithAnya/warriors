@@ -20,9 +20,22 @@ PLAYERS = {
   13: "Anderson Varejao"
 }
 
+if (Array.prototype.shuffle === undefined){
+  Array.prototype.shuffle = function() {
+    for (var i = 0; i < this.length; i++) {
+      var randIdx = Math.floor(Math.random() * this.length - i) + i;
+      var temp = this[i];
+      this[i] = this[randIdx];
+      this[randIdx] = temp;
+    }
+
+    return this;
+  };
+}
+
 function getQuestions(){
   var questions = [];
-  Object.keys(PLAYERS).forEach(function(playerNum){
+  Object.keys(PLAYERS).shuffle().forEach(function(playerNum){
     questions.push(makeQuestion(playerNum));
   });
   return questions;
@@ -49,6 +62,7 @@ Quiz.prototype.checkGuess = function(guess) {
   var question = this.questions[this.currentQ];
   if (question[guess] === true){
     this.points += 1;
+    console.log("correct");
   }
   return this.points;
 };

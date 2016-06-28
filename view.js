@@ -2,10 +2,22 @@ var Stats = require("./warriors.js");
 var Quiz = require("./quiz.js")
 require("./style.css")
 
+if (Array.prototype.shuffle === undefined){
+  Array.prototype.shuffle = function() {
+    for (var i = 0; i < this.length; i++) {
+      var randIdx = Math.floor(Math.random() * this.length - i) + i;
+      var temp = this[i];
+      this[i] = this[randIdx];
+      this[randIdx] = temp;
+    }
+
+    return this;
+  };
+}
+
 var getStats = function(quizGame){
   var players = quizGame.questions[quizGame.currentQ];
   var playerName = "";
-  debugger;
   Object.keys(players).forEach(function(player){
     if (players[player]){
       playerName = player;
@@ -32,7 +44,7 @@ var start = function(quizGame){
   displayStats(quizGame);
   var count = 0;
   el = document.getElementById('question');
-  Object.keys(quizGame.questions[0]).forEach(function(name){
+  Object.keys(quizGame.questions[0]).shuffle().forEach(function(name){
     el = document.getElementById('question');
     newEl = document.createElement("li");
     newEl.className += "player" + count;
@@ -53,13 +65,13 @@ var next = function(quizGame){
       child[0].parentNode.removeChild(child[0]);
     }
   }
-  
+
   var num = quizGame.currentQ;
   quizGame.currentQ = num + 1;
   var count = 0;
   displayStats(quizGame);
 
-  Object.keys(quizGame.questions[quizGame.currentQ]).forEach(function(name){
+  Object.keys(quizGame.questions[quizGame.currentQ]).shuffle().forEach(function(name){
     el = document.getElementById('question');
     newEl = document.createElement("li");
     newEl.className += "player" + count;
