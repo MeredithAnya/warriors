@@ -6,7 +6,17 @@
 
 ul {
   padding: 10px;
+  list-style: none;
 }
 li {
   padding: 10px;
+  list-style: none;
+}
+
+h1 {
+  text-align: center;
+}
+
+.stats-item {
+  display: inline-block;
 }

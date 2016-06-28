@@ -48,33 +48,105 @@
 	var Quiz = __webpack_require__(2)
 	__webpack_require__(3)
 
+	var getStats = function(quizGame){
+	  var players = quizGame.questions[quizGame.currentQ];
+	  var playerName = "";
+	  debugger;
+	  Object.keys(players).forEach(function(player){
+	    if (players[player]){
+	      playerName = player;
+	    }
+	  });
+	  return Stats.names[playerName];
+	}
+
+	var displayStats = function(quizGame){
+	  var stats = getStats(quizGame);
+
+	  el = document.getElementById('stats');
+	  Object.keys(stats).forEach(function(statName){
+	    el = document.getElementById('question');
+	    newEl = document.createElement("li");
+	    newEl.className += "stats-item";
+	    text = document.createTextNode(statName + ": "+ stats[statName]);
+	    newEl.appendChild(text);
+	    el.appendChild(newEl);
+	  });
+	}
+
+	var start = function(quizGame){
+	  displayStats(quizGame);
+	  var count = 0;
+	  el = document.getElementById('question');
+	  Object.keys(quizGame.questions[0]).forEach(function(name){
+	    el = document.getElementById('question');
+	    newEl = document.createElement("li");
+	    newEl.className += "player" + count;
+	    text = document.createTextNode(name);
+	    newEl.appendChild(text);
+	    el.appendChild(newEl);
+
+	    count += 1;
+	  });
+	  checkGuess(quizGame);
+	}
+
+	var next = function(quizGame){
+	  el = document.getElementById('question');
+	  var child = document.getElementsByTagName('li');
+	  if (child[0]) {
+	    while (child[0]){
+	      child[0].parentNode.removeChild(child[0]);
+	    }
+	  }
+	  
+	  var num = quizGame.currentQ;
+	  quizGame.currentQ = num + 1;
+	  var count = 0;
+	  displayStats(quizGame);
+
+	  Object.keys(quizGame.questions[quizGame.currentQ]).forEach(function(name){
+	    el = document.getElementById('question');
+	    newEl = document.createElement("li");
+	    newEl.className += "player" + count;
+	    text = document.createTextNode(name);
+	    newEl.appendChild(text);
+	    el.appendChild(newEl);
+
+	    count += 1;
+	  });
+	}
+
+	var clicked = function(e){
+	  var quizGame = this;
+	  console.log("meow");
+	  var guess = e.target.innerHTML;
+	  if (quizGame.currentQ < 12){
+	    quizGame.checkGuess(guess);
+	    next(quizGame);
+	  } else {
+	    endQuiz(quizGame);
+	  }
+	};
+
+	var checkGuess = function(quizGame){
+	  el = document.getElementById('question');
+	  // el.addEventListener("click", clicked.bind(quizGame));
+	  el.onclick = clicked.bind(quizGame);
+	}
+
+	var endQuiz = function(quizGame){
+	  el = document.getElementById('question');
+	  debugger;
+	  // el.removeEventListener("click", clicked, false);
+	  el.onclick = null;
+	}
 
 	document.addEventListener("DOMContentLoaded", function () {
 	  var quizGame = new Quiz();
-	  var next = function(quizGame){
-	    debugger;
-	    var child = document.getElementsByTagName('li');
-	    if (child[0]) {
-	      while (child[0]){
-	        child[0].parentNode.removeChild(child[0]);
-	      }
-	    }
-	    var num = quizGame.currentQ;
-	    el = document.getElementById('question');
-	    Object.keys(quizGame.questions[num]).forEach(function(name){
-	      el = document.getElementById('question');
-	      newEl = document.createElement("li");
-	      text = document.createTextNode(name);
-	      newEl.appendChild(text);
-	      el.appendChild(newEl);
-	    });
-	    quizGame.currentQ = num + 1;
-	  }
 
-	  document.addEventListener("click", function(e){
-	    next(quizGame);
-	  });
-
+	  start(quizGame);
+	  // checkGuess(quizGame);
 	});
 
 
@@ -91,10 +163,78 @@
 	//   this.ast = stats[ast];
 	//   this.pts = stats[pts];
 	// }
+	rushStats = {
+	  fgp: "45.0",
+	  tpp: "33.3",
+	  ftp: "50.0",
+	  reb: "1.6",
+	  ast: "0.2",
+	  pts: "1.6"
+	}
+
+	speightsStats = {
+	  fgp: "39.0",
+	  tpp: "41.9",
+	  ftp: "77.4",
+	  reb: "2.0",
+	  ast: "0.5",
+	  pts: "5.6"
+	}
+
+	iguodalaStats = {
+	  fgp: "47.6",
+	  tpp: "38.5",
+	  ftp: "56.1",
+	  reb: "4.4",
+	  ast: "3.8",
+	  pts: "8.9"
+	}
+
+	thompsonStats = {
+	  fgp: "44.4",
+	  tpp: "42.2",
+	  ftp: "85.4",
+	  reb: "3.7",
+	  ast: "2.3",
+	  pts: "24.3"
+	}
+
+	varejaoStats = {
+	  fgp: "35.7",
+	  tpp: "0.00",
+	  ftp: "52.6",
+	  reb: "1.2",
+	  ast: "0.8",
+	  pts: "1.2"
+	}
+
+	barbosaStats = {
+	  fgp: "58.0",
+	  tpp: "39.3",
+	  ftp: "76.2",
+	  reb: "1.2",
+	  ast: "0.7",
+	  pts: "5.6"
+	}
+	mcadooStats = {
+	  fgp: "50.0",
+	  tpp: "0.00",
+	  ftp: "25.0",
+	  reb: "1.0",
+	  ast: "0.3",
+	  pts: "0.6"
+	}
+	clarkStats = {
+	  fgp: "49.1",
+	  tpp: "33.3",
+	  ftp: "80.0",
+	  reb: "1.1",
+	  ast: "1.0",
+	  pts: "4.1"
+	}
 
 	bogutStats = {
-	  name: "Andrew Bogut",
-	  fpg: "62.3",
+	  fgp: "62.3",
 	  tpp: "0.00",
 	  ftp: "35.7",
 	  reb: "5.7",
@@ -102,9 +242,33 @@
 	  pts: "4.6"
 	}
 
+	curryStats = {
+	  fgp: "43.8",
+	  tpp: "40.4",
+	  ftp: "91.6",
+	  reb: "5.5",
+	  ast: "5.2",
+	  pts: "25.1"
+	}
+	ezeliStats = {
+	  fgp: "53.6",
+	  tpp: "0.00",
+	  ftp: "43.2",
+	  reb: "2.7",
+	  ast: "0.3",
+	  pts: "4.0"
+	}
+	livingstonStats = {
+	  fgp: "48.8",
+	  tpp: "0.00",
+	  ftp: "86.5",
+	  reb: "3.2",
+	  ast: "3.3",
+	  pts: "8.2"
+	}
+
 	barnesStats = {
-	  name: "Harrison Barnes",
-	  fpg: "38.5",
+	  fgp: "38.5",
 	  tpp: "34.2",
 	  ftp: "76.5",
 	  reb: "4.7",
@@ -113,8 +277,7 @@
 	}
 
 	greenStats = {
-	  name: "Draymond Green",
-	  fpg: "43.1",
+	  fgp: "43.1",
 	  tpp: "36.5",
 	  ftp: "73.8",
 	  reb: "9.9",
@@ -122,10 +285,24 @@
 	  pts: "15.4"
 	}
 
+
+
 	stats = {
 	  "Andrew Bogut": bogutStats,
 	  "Harrison Barnes": barnesStats,
-	  "Draymond Green": greenStats
+	  "Draymond Green": greenStats,
+	  "Stephen Curry": curryStats,
+	  "Anderson Varejao": varejaoStats,
+	  "Leandro Barbosa": barbosaStats,
+	  "Klay Thompson": thompsonStats,
+	  "Marreese Speights": speightsStats,
+	  "Shaun Livingston": livingstonStats,
+	  "Festus Ezeli": ezeliStats,
+	  "Ian Clark": clarkStats,
+	  "James Michael McAdoo": mcadooStats,
+	  "Brandon Rush": rushStats,
+	  "Andre Iguodala": iguodalaStats
+
 	}
 	module.exports.names = stats;
 
@@ -150,8 +327,10 @@
 	  7: "Ian Clark",
 	  8: "Marreese Speights",
 	  9: "Leandro Barbosa",
-	  10: "Jason Thompson",
-	  11: "Festus Ezeli"
+	  10: "Brandon Rush",
+	  11: "Festus Ezeli",
+	  12: "Shaun Livingston",
+	  13: "Anderson Varejao"
 	}
 
 	function getQuestions(){
@@ -168,9 +347,9 @@
 	  question[playerName] = true;
 	  var seenNumbers = [parseInt(playerNum)];
 	  for (var i = 0; i < 3; i++) {
-	    var num = Math.floor(Math.random() * (11 - 1)) + 1;
+	    var num = Math.floor(Math.random() * (13 - 1)) + 1;
 	    while (seenNumbers.indexOf(num) !== -1){
-	      num = Math.floor(Math.random() * (11 - 1)) + 1;
+	      num = Math.floor(Math.random() * (13 - 1)) + 1;
 	    }
 	    question[PLAYERS[num]] = false;
 	    seenNumbers.push(num);
@@ -178,6 +357,14 @@
 
 	  return question;
 	}
+
+	Quiz.prototype.checkGuess = function(guess) {
+	  var question = this.questions[this.currentQ];
+	  if (question[guess] === true){
+	    this.points += 1;
+	  }
+	  return this.points;
+	};
 
 
 	module.exports = Quiz;
@@ -199,8 +386,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./style.css");
+			module.hot.accept("!!./node_modules/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./node_modules/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -218,7 +405,7 @@
 
 
 	// module
-	exports.push([module.id, "#game {\n  margin: 0 auto;\n  width: 800px;\n  text-align: center;\n}\n\nul {\n  padding: 10px;\n}\nli {\n  padding: 10px;\n}\n", ""]);
+	exports.push([module.id, "#game {\n  margin: 0 auto;\n  width: 800px;\n  text-align: center;\n}\n\nul {\n  padding: 10px;\n  list-style: none;\n}\nli {\n  padding: 10px;\n  list-style: none;\n}\n\nh1 {\n  text-align: center;\n}\n\n.stats-item {\n  display: inline-block;\n}\n", ""]);
 
 	// exports
 

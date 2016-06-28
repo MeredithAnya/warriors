@@ -14,8 +14,10 @@ PLAYERS = {
   7: "Ian Clark",
   8: "Marreese Speights",
   9: "Leandro Barbosa",
-  10: "Jason Thompson",
-  11: "Festus Ezeli"
+  10: "Brandon Rush",
+  11: "Festus Ezeli",
+  12: "Shaun Livingston",
+  13: "Anderson Varejao"
 }
 
 function getQuestions(){
@@ -32,9 +34,9 @@ function makeQuestion(playerNum) {
   question[playerName] = true;
   var seenNumbers = [parseInt(playerNum)];
   for (var i = 0; i < 3; i++) {
-    var num = Math.floor(Math.random() * (11 - 1)) + 1;
+    var num = Math.floor(Math.random() * (13 - 1)) + 1;
     while (seenNumbers.indexOf(num) !== -1){
-      num = Math.floor(Math.random() * (11 - 1)) + 1;
+      num = Math.floor(Math.random() * (13 - 1)) + 1;
     }
     question[PLAYERS[num]] = false;
     seenNumbers.push(num);
@@ -42,6 +44,14 @@ function makeQuestion(playerNum) {
 
   return question;
 }
+
+Quiz.prototype.checkGuess = function(guess) {
+  var question = this.questions[this.currentQ];
+  if (question[guess] === true){
+    this.points += 1;
+  }
+  return this.points;
+};
 
 
 module.exports = Quiz;
