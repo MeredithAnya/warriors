@@ -148,4 +148,15 @@ stats = {
   "Andre Iguodala": iguodalaStats
 
 }
+fullStats = {
+  fgp: "FG%",
+  tpp: "TP%",
+  ftp: "FT%",
+  reb: "Rebounds",
+  ast: "Assists",
+  pts: "Points"
+}
+
+
 module.exports.names = stats;
+module.exports.fullStats = fullStats;

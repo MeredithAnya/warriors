@@ -10,7 +10,6 @@ if (Array.prototype.shuffle === undefined){
       this[i] = this[randIdx];
       this[randIdx] = temp;
     }
-
     return this;
   };
 }
@@ -31,10 +30,11 @@ var displayStats = function(quizGame){
 
   el = document.getElementById('stats');
   Object.keys(stats).forEach(function(statName){
-    el = document.getElementById('question');
+    el = document.getElementById('stats');
     newEl = document.createElement("li");
     newEl.className += "stats-item";
-    text = document.createTextNode(statName + ": "+ stats[statName]);
+    var fullStat = Stats.fullStats[statName];
+    text = document.createTextNode(fullStat + ": "+ stats[statName]);
     newEl.appendChild(text);
     el.appendChild(newEl);
   });
@@ -85,7 +85,6 @@ var next = function(quizGame){
 
 var clicked = function(e){
   var quizGame = this;
-  console.log("meow");
   var guess = e.target.innerHTML;
   if (quizGame.currentQ < 12){
     quizGame.checkGuess(guess);
@@ -110,7 +109,6 @@ var endQuiz = function(quizGame){
 
 document.addEventListener("DOMContentLoaded", function () {
   var quizGame = new Quiz();
-
   start(quizGame);
-  // checkGuess(quizGame);
+
 });

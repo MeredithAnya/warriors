@@ -1,5 +1,4 @@
 #game {
-  margin: 0 auto;
   width: 800px;
   text-align: center;
 }
@@ -9,14 +8,39 @@ ul {
   list-style: none;
 }
 li {
-  padding: 10px;
   list-style: none;
 }
-
+li:hover {
+  cursor: pointer;
+}
 h1 {
   text-align: center;
 }
 
+.quiz-container {
+  margin: 50px auto;
+  height: 70%;
+  width: 50%;
+}
+.question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.player0, .player1, .player2, .player3 {
+  background-color: #0146AD;
+  color: #FEC235;
+  margin: 5px;
+  width: 50%;
+  padding: 10px;
+  font-size: 22px;
+}
+.player0:hover, .player1:hover, .player2:hover, .player3:hover {
+  color: 	#FFFEFF;
+}
+
 .stats-item {
+  font-size: 20px;
+  padding: 5px;
   display: inline-block;
 }

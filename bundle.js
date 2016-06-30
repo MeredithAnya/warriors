@@ -56,7 +56,6 @@
 	      this[i] = this[randIdx];
 	      this[randIdx] = temp;
 	    }
-
 	    return this;
 	  };
 	}
@@ -77,10 +76,11 @@
 
 	  el = document.getElementById('stats');
 	  Object.keys(stats).forEach(function(statName){
-	    el = document.getElementById('question');
+	    el = document.getElementById('stats');
 	    newEl = document.createElement("li");
 	    newEl.className += "stats-item";
-	    text = document.createTextNode(statName + ": "+ stats[statName]);
+	    var fullStat = Stats.fullStats[statName];
+	    text = document.createTextNode(fullStat + ": "+ stats[statName]);
 	    newEl.appendChild(text);
 	    el.appendChild(newEl);
 	  });
@@ -131,7 +131,6 @@
 
 	var clicked = function(e){
 	  var quizGame = this;
-	  console.log("meow");
 	  var guess = e.target.innerHTML;
 	  if (quizGame.currentQ < 12){
 	    quizGame.checkGuess(guess);
@@ -156,9 +155,8 @@
 
 	document.addEventListener("DOMContentLoaded", function () {
 	  var quizGame = new Quiz();
-
 	  start(quizGame);
-	  // checkGuess(quizGame);
+
 	});
 
 
@@ -316,7 +314,18 @@
 	  "Andre Iguodala": iguodalaStats
 
 	}
+	fullStats = {
+	  fgp: "FG%",
+	  tpp: "TP%",
+	  ftp: "FT%",
+	  reb: "Rebounds",
+	  ast: "Assists",
+	  pts: "Points"
+	}
+
+
 	module.exports.names = stats;
+	module.exports.fullStats = fullStats;
 
 
 /***/ },
@@ -431,7 +440,7 @@
 
 
 	// module
-	exports.push([module.id, "#game {\n  margin: 0 auto;\n  width: 800px;\n  text-align: center;\n}\n\nul {\n  padding: 10px;\n  list-style: none;\n}\nli {\n  padding: 10px;\n  list-style: none;\n}\n\nh1 {\n  text-align: center;\n}\n\n.stats-item {\n  display: inline-block;\n}\n", ""]);
+	exports.push([module.id, "#game {\n  width: 800px;\n  text-align: center;\n}\n\nul {\n  padding: 10px;\n  list-style: none;\n}\nli {\n  list-style: none;\n}\nli:hover {\n  cursor: pointer;\n}\nh1 {\n  text-align: center;\n}\n\n.quiz-container {\n  margin: 50px auto;\n  height: 70%;\n  width: 50%;\n}\n.question {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n.player0, .player1, .player2, .player3 {\n  background-color: #0146AD;\n  color: #FEC235;\n  margin: 5px;\n  width: 50%;\n  padding: 10px;\n  font-size: 22px;\n}\n.player0:hover, .player1:hover, .player2:hover, .player3:hover {\n  color: \t#FFFEFF;\n}\n\n.stats-item {\n  font-size: 20px;\n  padding: 5px;\n  display: inline-block;\n}\n", ""]);
 
 	// exports
 
